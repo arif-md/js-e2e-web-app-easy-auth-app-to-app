@@ -10,8 +10,12 @@
 4. Configure authentication
    -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
    -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
-6. Grant frontend app access to backend
-7. 
+6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf
+   -  raptor-client => Authentication -> Identity Provider section -> Select the app registration by name raptor-client -> Manage -> API permissions -> Add a permission -> My APIs -> select "raptor-server" -> select "Delegated Permissions" -> Under permissions section select "user_impersonation" and then Add Permissions 
+7. Configure App Service to return a usable access token
+   - 
+9. ssd
+10. 
 
 
 ---
