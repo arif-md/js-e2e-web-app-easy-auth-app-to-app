@@ -1,3 +1,19 @@
+1. Create and deploy apps
+   -  cd frontend
+   -  az webapp up --resource-group rg-raptor-test --name raptor-client --plan myPlan --sku FREE --location "East US2" --os-type Linux --runtime "NODE:18-lts" --debug
+   -  cd ../backend
+   -  az webapp up --resource-group rg-raptor-test --name raptor-server --plan myPlan --sku FREE --location "East US2" --runtime "NODE:18-lts"
+2. Configure app setting
+   - az webapp config appsettings set --resource-group rg-raptor-test --name raptor-client --settings BACKEND_URL="https://raptor-server.azurewebsites.net" 
+3. Frontend calls the backend
+   - Open the frontend web app in a browser, https://raptor-client.azurewebsites.net
+4. Configure authentication
+   -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
+   -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
+6. Grant frontend app access to backend
+7. 
+
+
 ---
 page_type: sample
 name: Authenticate and authorize users end-to-end in Azure App Service with JavaScript
