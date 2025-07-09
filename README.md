@@ -19,8 +19,16 @@
      authSettings=$(az webapp auth show -g rg-raptor-test -n raptor-client)
      authSettings=$(echo "$authSettings" | jq '.properties' | jq '.identityProviders.azureActiveDirectory.login += {"loginParameters":["scope=openid offline_access api://<back-end-client-id>/user_impersonation"]}')
      az webapp auth set --resource-group rg-raptor-test --name raptor-client --body "$authSettings"
-```
-9. ssd
+     ```
+8. Configure backend App Service to accept a token only from the front-end App Service
+   - Not doing this configuration results in a 403: Forbidden error when you pass the token from the front end to the back end
+   - Get the appId of the front-end App Service. You can get this value on the Authentication page of the front-end App Service
+   - Run the following Azure CLI, substituting the <front-end-app-id>
+   - ```
+     authSettings=$(az webapp auth show -g rg-raptor-test -n raptor-server)
+     authSettings=$(echo "$authSettings" | jq '.properties' | jq '.identityProviders.azureActiveDirectory.validation.defaultAuthorizationPolicy.allowedApplications += ["<front-end-app-id>"]')
+     az webapp auth set --resource-group rg-raptor-test --name raptor-server --body "$authSettings"     
+     ```
 10. 
 
 
