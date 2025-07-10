@@ -57,7 +57,7 @@
      ```
 10. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
      - az ad app delete < client-id >
-     - az ad app delete <server-id>
+     - az ad app delete < server-id >
 
 
 ---
