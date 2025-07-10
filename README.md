@@ -43,6 +43,18 @@
      authSettings=$(echo "$authSettings" | jq '.properties' | jq '.identityProviders.azureActiveDirectory.validation.defaultAuthorizationPolicy.allowedApplications += ["<front-end-app-id>"]')
      az webapp auth set --resource-group rg-raptor-test --name raptor-server --body "$authSettings"     
      ```
+   - After executing the above commands, webapp configurion would be something like this.
+   - ```
+      arif [ ~ ]$ az webapp auth show -g rg-reptor-test -n raptor-server
+      {
+        "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"258529a8-d959-4d0f-a222-98d7639236ce\",\"2a69e0a2-5712-4423-92a7-1456b8a7e8fd\"]}",
+        "additionalLoginParams": null,
+        "allowedAudiences": [
+          "api://258529a8-d959-4d0f-a222-98d7639236ce"
+        ],
+       ...
+       ...     
+     ```
 10. 
 
 
