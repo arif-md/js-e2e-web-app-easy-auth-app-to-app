@@ -26,7 +26,7 @@
       {
         "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"2a69e0a2-5712-4423-92a7-1456b8a7e8fd\"]}",
         "additionalLoginParams": [
-          **"scope=openid offline_access api://258529a8-d959-4d0f-a222-98d7639236ce/user_impersonation"**
+          "scope=openid offline_access api://258529a8-d959-4d0f-a222-98d7639236ce/user_impersonation"
         ],
         "allowedAudiences": [
           "api://2a69e0a2-5712-4423-92a7-1456b8a7e8fd"
