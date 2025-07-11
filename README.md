@@ -117,6 +117,28 @@
 5. Configure authentication
    -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
    -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
+   -  result of above configuration is:
+   -  ```
+      arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-server
+      {
+        "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"8e2bc82f-76db-43ba-b07e-2dc5f4a5769f\"]}",
+        "additionalLoginParams": null,
+        "allowedAudiences": [
+          "api://8e2bc82f-76db-43ba-b07e-2dc5f4a5769f"
+        ],
+        "clientId": "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f",
+        "clientSecretSettingName": "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET",
+        "configVersion": "v2",
+        "enabled": true,
+        "issuer": "https://sts.windows.net/60a52712-6791-451d-bdec-5021c5f60a64/v2.0",
+        "unauthenticatedClientAction": "RedirectToLoginPage",
+        ...
+        ...
+      }
+
+      
+      ```
+     
 6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf
    -  raptor-client => Authentication -> Identity Provider section -> Select the app registration by name raptor-client -> Manage -> API permissions -> Add a permission -> My APIs -> select "raptor-server" -> select "Delegated Permissions" -> Under permissions section select "user_impersonation" and then Add Permissions 
 7. Configure App Service to return a usable access token i.e, configure App Service authentication and authorization to give you a usable access token for accessing the back end.
