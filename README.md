@@ -136,9 +136,6 @@
         ...
         ...
       }
-
-
-
       arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-client
       {
         "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"52341723-9883-494f-91fe-755b93e52420\"]}",
