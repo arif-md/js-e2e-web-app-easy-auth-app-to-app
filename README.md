@@ -131,12 +131,30 @@
         "configVersion": "v2",
         "enabled": true,
         "issuer": "https://sts.windows.net/60a52712-6791-451d-bdec-5021c5f60a64/v2.0",
+        "tokenStoreEnabled": true,      
         "unauthenticatedClientAction": "RedirectToLoginPage",
         ...
         ...
       }
 
-      
+
+
+      arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-client
+      {
+        "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"52341723-9883-494f-91fe-755b93e52420\"]}",
+        "additionalLoginParams": null,
+        "allowedAudiences": [
+          "api://52341723-9883-494f-91fe-755b93e52420"
+        ],
+        "clientId": "52341723-9883-494f-91fe-755b93e52420",
+        "clientSecretSettingName": "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET",
+        "configVersion": "v2",
+        "issuer": "https://sts.windows.net/60a52712-6791-451d-bdec-5021c5f60a64/v2.0",
+        "tokenStoreEnabled": true,
+        "unauthenticatedClientAction": "RedirectToLoginPage",
+        ...
+        ...
+      }      
       ```
      
 6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf
