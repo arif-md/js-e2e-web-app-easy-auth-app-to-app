@@ -7,7 +7,64 @@
    - az webapp config appsettings set --resource-group rg-raptor-test --name raptor-client --settings BACKEND_URL="https://raptor-server.azurewebsites.net" 
 3. Frontend calls the backend
    - Open the frontend web app in a browser, https://raptor-client.azurewebsites.net
-4. Configure authentication
+4. This is how the webapp authentication configuration looks like. Just in case needed for comparision later after adding various other configs.
+   - Auth config for raptor-client
+   - ```
+      arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-client
+      {
+        "aadClaimsAuthorization": null,
+        "additionalLoginParams": null,
+        "allowedAudiences": null,
+        "allowedExternalRedirectUrls": null,
+        "authFilePath": null,
+        "clientId": null,
+        "clientSecret": null,
+        "clientSecretCertificateThumbprint": null,
+        "clientSecretSettingName": null,
+        "configVersion": "v1",
+        "defaultProvider": null,
+        "enabled": false,
+        "facebookAppId": null,
+        "facebookAppSecret": null,
+        "facebookAppSecretSettingName": null,
+        "facebookOAuthScopes": null,
+        "gitHubClientId": null,
+        "gitHubClientSecret": null,
+        "gitHubClientSecretSettingName": null,
+        "gitHubOAuthScopes": null,
+        "googleClientId": null,
+        "googleClientSecret": null,
+        "googleClientSecretSettingName": null,
+        "googleOAuthScopes": null,
+        "id": "/subscriptions/5b489d19-6e0a-45bd-be65-d7d1c40af428/resourceGroups/rg-reptor-test/providers/Microsoft.Web/sites/raptor-client/config/authsettings",
+        "isAuthFromFile": null,
+        "issuer": null,
+        "kind": null,
+        "location": "East US 2",
+        "microsoftAccountClientId": null,
+        "microsoftAccountClientSecret": null,
+        "microsoftAccountClientSecretSettingName": null,
+        "microsoftAccountOAuthScopes": null,
+        "name": "authsettings",
+        "resourceGroup": "rg-reptor-test",
+        "runtimeVersion": null,
+        "tags": {
+          "createdOnDate": "2025-07-10T22:59:38.4736321Z"
+        },
+        "tokenRefreshExtensionHours": null,
+        "tokenStoreEnabled": null,
+        "twitterConsumerKey": null,
+        "twitterConsumerSecret": null,
+        "twitterConsumerSecretSettingName": null,
+        "type": "Microsoft.Web/sites/config",
+        "unauthenticatedClientAction": null,
+        "validateIssuer": null
+      }     
+     ```
+   - Auth config for raptor-server
+   - ```
+     ```     
+5. Configure authentication
    -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
    -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
 6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf
@@ -55,7 +112,7 @@
        ...
        ...     
      ```
-10. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
+9. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
      - az ad app delete --id < client-id >
      - az ad app delete --id < server-id >
 
