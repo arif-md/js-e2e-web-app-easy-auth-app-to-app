@@ -116,7 +116,7 @@
      ```     
 5. Configure authentication
    -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
-   -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
+   -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-client -> Authentication
    -  result of above configuration is:
    -  ```
       arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-server
