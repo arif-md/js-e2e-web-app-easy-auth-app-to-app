@@ -154,7 +154,7 @@
       }      
       ```
      
-6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf
+6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf. Note that after performing the following steps, there wont be any change in web app configurations, only change is on app registration side.
    -  raptor-client => Authentication -> Identity Provider section -> Select the app registration by name raptor-client -> Manage -> API permissions -> Add a permission -> My APIs -> select "raptor-server" -> select "Delegated Permissions" -> Under permissions section select "user_impersonation" and then Add Permissions 
 7. Configure App Service to return a usable access token i.e, configure App Service authentication and authorization to give you a usable access token for accessing the back end.
    - In the Cloud Shell, run the following commands on the front-end app to add the scope parameter to the authentication setting. Replace <back-end-client-id> with raptor-server client id.
