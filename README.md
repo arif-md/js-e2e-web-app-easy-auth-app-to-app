@@ -166,18 +166,46 @@
      az webapp auth set --resource-group rg-raptor-test --name raptor-client --body "$authSettings"
      ```
    - After executing the above commands, webapp configurion would be something like this.
-   - ```      
+   - ```
       arif [ ~ ]$ az webapp auth show -g rg-reptor-test -n raptor-client
+      The behavior of this command has been altered by the following extension: authV2
       {
-        "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"2a69e0a2-5712-4423-92a7-1456b8a7e8fd\"]}",
-        "additionalLoginParams": [
-          "scope=openid offline_access api://258529a8-d959-4d0f-a222-98d7639236ce/user_impersonation"
-        ],
-        "allowedAudiences": [
-          "api://2a69e0a2-5712-4423-92a7-1456b8a7e8fd"
-        ],
-        ...
-        ... 
+        "id": "/subscriptions/5b489d19-6e0a-45bd-be65-d7d1c40af428/resourceGroups/rg-reptor-test/providers/Microsoft.Web/sites/raptor-client/config/authsettingsV2",
+        "location": "East US 2",
+        "name": "authsettingsV2",
+        "properties": {
+          "clearInboundClaimsMapping": "false",
+          "globalValidation": {
+            "redirectToProvider": "azureactivedirectory",
+            "requireAuthentication": true,
+            "unauthenticatedClientAction": "RedirectToLoginPage"
+          },
+          "httpSettings": {
+            "forwardProxy": {
+              "convention": "NoProxy"
+            },
+            "requireHttps": true,
+            "routes": {
+              "apiPrefix": "/.auth"
+            }
+          },
+          "identityProviders": {
+            "apple": {
+              "enabled": true,
+              "login": {},
+              "registration": {}
+            },
+            "azureActiveDirectory": {
+              "enabled": true,
+              "login": {
+                "disableWWWAuthenticate": false,
+                "loginParameters": [
+                  "scope=openid offline_access api://8e2bc82f-76db-43ba-b07e-2dc5f4a5769f/user_impersonation"
+                ]
+              },
+         ...
+         ...
+         ...
      ```
 8. Configure backend App Service to accept a token only from the front-end App Service
    - Not doing this configuration results in a 403: Forbidden error when you pass the token from the front end to the back end
