@@ -7,7 +7,12 @@
    - az webapp config appsettings set --resource-group rg-raptor-test --name raptor-client --settings BACKEND_URL="https://raptor-server.azurewebsites.net" 
 3. Frontend calls the backend
    - Open the frontend web app in a browser, https://raptor-client.azurewebsites.net
-4. This is how the webapp authentication configuration looks like.
+   - 
+4. - In a nutshell this is how we are going to configure int the following steps.
+   - Client to Server : Add user_impersonation permission on raptor-client registration app
+   - Server to client : Add
+   - Client to return the proper access token:
+5. This is how the webapp authentication configuration looks like.
    - Auth config for raptor-client
    - ```
       arif [ ~ ]$ az webapp auth show -g rg-raptor-test -n raptor-client
@@ -114,7 +119,7 @@
         "validateIssuer": null
       }     
      ```     
-5. Configure authentication
+6. Configure authentication
    -  raptor-server: Add the MS as ID provider and copy the client ID from raptor-server -> Authentication
    -  raptor-client: Add the MS as ID provider and copy the client ID from raptor-client -> Authentication
    -  result of above configuration is:
@@ -154,10 +159,10 @@
       }      
       ```
      
-6. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf. 
+7. Grant frontend app access to backend. Technically, you give the frontend's AD application the permissions to access the backend's AD application on the user's behalf. 
    -  raptor-client => Authentication -> Identity Provider section -> Select the app registration by name raptor-client -> Manage -> API permissions -> Add a permission -> My APIs -> select "raptor-server" -> select "Delegated Permissions" -> Under permissions section select "user_impersonation" and then Add Permissions.
    -  **Note** that after performing the above steps, there wont be any change in web app configurations, only change is on app registration side. 
-7. Configure App Service to return a usable access token i.e, configure App Service authentication and authorization to give you a usable access token for accessing the back end.
+8. Configure App Service to return a usable access token i.e, configure App Service authentication and authorization to give you a usable access token for accessing the back end.
    - In the Cloud Shell, run the following commands on the front-end app to add the scope parameter to the authentication setting. Replace <back-end-client-id> with raptor-server client id.
    - ```
      az extension add --name authV2
@@ -207,7 +212,7 @@
          ...
          ...
      ```
-8. Configure backend App Service to accept a token only from the front-end App Service
+9. Configure backend App Service to accept a token only from the front-end App Service
    - Not doing this configuration results in a 403: Forbidden error when you pass the token from the front end to the back end
    - Get the appId of the front-end App Service. You can get this value on the Authentication page of the front-end App Service
    - Run the following Azure CLI, substituting the <front-end-app-id>
@@ -271,7 +276,7 @@
             ...
             ...
      ```
-9. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
+10. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
      - az ad app delete --id < client-id >
      - az ad app delete --id < server-id >
 
