@@ -219,14 +219,57 @@
    - After executing the above commands, webapp configurion would be something like this.
    - ```
       arif [ ~ ]$ az webapp auth show -g rg-reptor-test -n raptor-server
+      The behavior of this command has been altered by the following extension: authV2
       {
-        "aadClaimsAuthorization": "{\"allowed_groups\":null,\"allowed_client_applications\":[\"258529a8-d959-4d0f-a222-98d7639236ce\",\"2a69e0a2-5712-4423-92a7-1456b8a7e8fd\"]}",
-        "additionalLoginParams": null,
-        "allowedAudiences": [
-          "api://258529a8-d959-4d0f-a222-98d7639236ce"
-        ],
-       ...
-       ...     
+        "id": "/subscriptions/5b489d19-6e0a-45bd-be65-d7d1c40af428/resourceGroups/rg-reptor-test/providers/Microsoft.Web/sites/raptor-server/config/authsettingsV2",
+        "location": "East US 2",
+        "name": "authsettingsV2",
+        "properties": {
+          "clearInboundClaimsMapping": "false",
+          "globalValidation": {
+            "redirectToProvider": "azureactivedirectory",
+            "requireAuthentication": true,
+            "unauthenticatedClientAction": "RedirectToLoginPage"
+          },
+          "httpSettings": {
+            "forwardProxy": {
+              "convention": "NoProxy"
+            },
+            "requireHttps": true,
+            "routes": {
+              "apiPrefix": "/.auth"
+            }
+          },
+          "identityProviders": {
+            "apple": {
+              "enabled": true,
+              "login": {},
+              "registration": {}
+            },
+            "azureActiveDirectory": {
+              "enabled": true,
+              "login": {
+                "disableWWWAuthenticate": false
+              },
+              "registration": {
+                "clientId": "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f",
+                "clientSecretSettingName": "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET",
+                "openIdIssuer": "https://sts.windows.net/60a52712-6791-451d-bdec-5021c5f60a64/v2.0"
+              },
+              "validation": {
+                "allowedAudiences": [],
+                "defaultAuthorizationPolicy": {
+                  "allowedApplications": [
+                    "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f"
+                  ],
+                  "allowedPrincipals": {}
+                },
+                "jwtClaimChecks": {}
+              }
+            },
+            ...
+            ...
+            ...
      ```
 9. cleanup the following resources. Service plan, frontend/backend apps and app registrations. Following command deletes app registration.
      - az ad app delete --id < client-id >
