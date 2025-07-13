@@ -44,7 +44,6 @@
               }
             },     
      ```
-   - Client to return the proper access token:
 5. This is how the webapp authentication configuration looks like.
    - Auth config for raptor-client
    - ```
