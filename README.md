@@ -9,7 +9,7 @@
    - Open the frontend web app in a browser, https://raptor-client.azurewebsites.net
 4. In a nutshell this is how we are going to make configuration changes in the following steps.
    - Add user_impersonation permission on raptor-client registration app
-   - Client to Server : Configure App Service to return a usable access token for raptor-client.
+   - Client : Configure App Service to return a usable access token for raptor-client.
      ```
             "azureActiveDirectory": {
               "enabled": true,
@@ -20,7 +20,7 @@
                 ]
               },
      ```
-   - Server to client : Add
+   - Server : Configure backend App Service to accept a token only from the front-end App Service
      ```
             "azureActiveDirectory": {
               "enabled": true,
@@ -36,7 +36,7 @@
                 "allowedAudiences": [],
                 "defaultAuthorizationPolicy": {
                   "allowedApplications": [
-                    "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f"
+                    <front-end-client-id>
                   ],
                   "allowedPrincipals": {}
                 },
