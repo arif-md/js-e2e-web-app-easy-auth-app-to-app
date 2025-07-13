@@ -7,10 +7,43 @@
    - az webapp config appsettings set --resource-group rg-raptor-test --name raptor-client --settings BACKEND_URL="https://raptor-server.azurewebsites.net" 
 3. Frontend calls the backend
    - Open the frontend web app in a browser, https://raptor-client.azurewebsites.net
-   - 
-4. - In a nutshell this is how we are going to configure int the following steps.
-   - Client to Server : Add user_impersonation permission on raptor-client registration app
+4. In a nutshell this is how we are going to make configuration changes in the following steps.
+   - Add user_impersonation permission on raptor-client registration app
+   - Client to Server : Configure App Service to return a usable access token for raptor-client.
+     ```
+            "azureActiveDirectory": {
+              "enabled": true,
+              "login": {
+                "disableWWWAuthenticate": false,
+                "loginParameters": [
+                  "scope=openid offline_access api://<back-end-client-id>/user_impersonation"
+                ]
+              },
+     ```
    - Server to client : Add
+     ```
+            "azureActiveDirectory": {
+              "enabled": true,
+              "login": {
+                "disableWWWAuthenticate": false
+              },
+              "registration": {
+                "clientId": "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f",
+                "clientSecretSettingName": "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET",
+                "openIdIssuer": "https://sts.windows.net/60a52712-6791-451d-bdec-5021c5f60a64/v2.0"
+              },
+              "validation": {
+                "allowedAudiences": [],
+                "defaultAuthorizationPolicy": {
+                  "allowedApplications": [
+                    "8e2bc82f-76db-43ba-b07e-2dc5f4a5769f"
+                  ],
+                  "allowedPrincipals": {}
+                },
+                "jwtClaimChecks": {}
+              }
+            },     
+     ```
    - Client to return the proper access token:
 5. This is how the webapp authentication configuration looks like.
    - Auth config for raptor-client
